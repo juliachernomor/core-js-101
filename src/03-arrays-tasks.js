@@ -325,8 +325,11 @@ function getPositivesCount(arr) {
  *   [ 'nine','eight','nine','eight'] => [ 'eight','eight','nine','nine']
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
-function sortDigitNamesByNumericOrder(/* arr */) {
-  throw new Error('Not implemented');
+function sortDigitNamesByNumericOrder(arr) {
+  const mass = ['zero', 'one', 'two', 'three', 'four',
+    'five', 'six', 'seven', 'eight', 'nine'];
+
+  return arr.sort((a, b) => mass.indexOf(a) - mass.indexOf(b));
 }
 
 /**
@@ -341,8 +344,8 @@ function sortDigitNamesByNumericOrder(/* arr */) {
  *   [ -1, 1, -1, 1 ]      => 0
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
-function getItemsSum(/* arr */) {
-  throw new Error('Not implemented');
+function getItemsSum(arr) {
+  return arr.reduce((acc, value) => acc + value, 0);
 }
 
 /**
@@ -357,8 +360,14 @@ function getItemsSum(/* arr */) {
  *  [ -1, 'false', null, 0 ] => 2
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
-function getFalsyValuesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getFalsyValuesCount(arr) {
+  let sum = 0;
+  arr.map((el) => {
+    if (Boolean(el) === false) {
+      sum += 1;
+      return sum;
+    } return sum;
+  }); return sum;
 }
 
 /**
@@ -375,8 +384,8 @@ function getFalsyValuesCount(/* arr */) {
  *    [ null, undefined, null ], null => 2
  *    [ true, 0, 1, 'true' ], true => 1
  */
-function findAllOccurrences(/* arr, item */) {
-  throw new Error('Not implemented');
+function findAllOccurrences(arr, item) {
+  return (arr.filter((el) => el === item)).length;
 }
 
 /**
@@ -390,8 +399,8 @@ function findAllOccurrences(/* arr, item */) {
  *    [1, 2, 3, 4, 5]                   => '1,2,3,4,5'
  *    ['rock', 'paper', 'scissors']     => 'rock,paper,scissors'
  */
-function toStringList(/* arr */) {
-  throw new Error('Not implemented');
+function toStringList(arr) {
+  return arr.flat();
 }
 
 
@@ -421,9 +430,24 @@ function toStringList(/* arr */) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  *    ]
  */
-function sortCitiesArray(/* arr */) {
-  throw new Error('Not implemented');
+function sortCitiesArray(arr) {
+  return arr.sort((a, b) => {
+    if (a.country < b.country) {
+      return -1;
+    }
+    if (a.country > b.country) {
+      return 1;
+    }
+    if (a.city < b.city) {
+      return -1;
+    }
+    if (a.city > b.city) {
+      return 1;
+    }
+    return null;
+  });
 }
+
 
 /**
  * Creates an identity matrix of the specified size
@@ -544,8 +568,29 @@ function selectMany(/* arr, childrenSelector */) {
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  throw new Error('Not implemented');
+function getElementByIndexes(arr, indexes) {
+  let result;
+  if (indexes.length === 0) {
+    result = 0;
+    return result;
+  }
+  if (indexes.length === 1) {
+    arr.map((el, index) => {
+      if (index === indexes[0]) {
+        result = el;
+      }
+      return result;
+    });
+  }
+  if (indexes.length > 1) {
+    arr.map((_, index) => {
+      if (index === indexes[0]) {
+        indexes.splice(0, 1);
+        result = getElementByIndexes(arr[index], indexes);
+      } return result;
+    });
+  }
+  return result;
 }
 
 
@@ -567,10 +612,19 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
-}
 
+function swapHeadAndTail(arr) {
+  let a = []; let b = [];
+  if (arr.length !== 1 && arr.length % 2 === 0) {
+    a = arr.slice(arr.length / 2); // вторая половина
+    b = arr.slice(0, arr.length / 2); // первая половина
+  } else if (arr.length !== 1 && arr.length % 2 !== 0) {
+    a = arr.slice(Math.floor(arr.length / 2) + 1); // вторая половина
+    b.push(arr[(Math.floor(arr.length / 2))]); // середина
+    b.push(...arr.slice(0, (Math.floor(arr.length / 2)))); // первая половина
+  }
+  return arr.length !== 1 ? a.concat(b) : arr;
+}
 
 module.exports = {
   findElement,
