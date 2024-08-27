@@ -463,13 +463,34 @@ function sortCitiesArray(arr) {
  *
  *          [[1,0,0,0,0],
  *           [0,1,0,0,0],
+ *
+ *
  *     5 =>  [0,0,1,0,0],
  *           [0,0,0,1,0],
  *           [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+// function getIdentityMatrix(n) {
+//   const mass = [];
+//   for (let i = 0; i < n; i += 1) {
+//     const submass = [];
+//     for (let j = 0; j < n; j += 1) {
+//       const c = j === i ? 1 : 0;
+//       submass.push(c);
+//     }
+//     mass.push(submass);
+//   }
+//   return mass;
+// }
+
+function getIdentityMatrix(n) {
+  const mass = Array.from({ length: n }).fill(0);
+  return mass.map((_, ind) => {
+    const res = Array.from({ length: n }).fill(0);
+    res[ind] = 1;
+    return res;
+  });
 }
+
 
 /**
  * Creates an array of integers from the specified start to end (inclusive)
