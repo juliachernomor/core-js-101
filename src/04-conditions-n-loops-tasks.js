@@ -344,10 +344,31 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
-}
 
+
+function isBracketsBalanced(str) {
+  const isBrackets = {
+    ']': '[',
+    ')': '(',
+    '}': '{',
+    '>': '<',
+  };
+  const stack = [];
+  try {
+    str.split('').forEach((bracket) => {
+      if (!isBrackets[bracket]) {
+        stack.push(bracket);
+      } else if (stack[stack.length - 1] === isBrackets[bracket]) {
+        stack.pop(bracket);
+      } else {
+        throw new Error('Error');
+      }
+    });
+  } catch (e) {
+    return false;
+  }
+  return stack.length === 0;
+}
 
 /**
  * Returns the string with n-ary (binary, ternary, etc, where n <= 10)
