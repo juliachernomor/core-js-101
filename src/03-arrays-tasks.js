@@ -505,9 +505,22 @@ function getIdentityMatrix(n) {
  *     0, 100 => [ 0, 1, 2, ..., 100 ]
  *     3, 3   => [ 3 ]
  */
-function getIntervalArray(/* start, end */) {
-  throw new Error('Not implemented');
+function getIntervalArray(start, end) {
+  let counter = start - 1;
+  return Array.from({ length: end - start + 1 }).fill(0).map(() => {
+    counter += 1; return counter;
+  });
 }
+// function getIntervalArray(start, end) {
+//   const result = [];
+//   let counter = start;
+//   while (counter <= end) {
+//     result.push(counter);
+//     counter += 1;
+//   }
+//   return result;
+// }
+
 
 /**
  * Returns array containing only unique values from the specified array.
@@ -520,8 +533,9 @@ function getIntervalArray(/* start, end */) {
  *   [ 'a', 'a', 'a', 'a' ]  => [ 'a' ]
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
-function distinct(/* arr */) {
-  throw new Error('Not implemented');
+function distinct(arr) {
+  const a = new Set(arr);
+  return Array.from(a);
 }
 
 /**
